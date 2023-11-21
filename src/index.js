@@ -31,87 +31,89 @@ const music = [
 
 let musicIndex = 0;
 
-function init() {
-
-    function playPause() {
-        if (ctrlIcon.classList.contains('fa-pause')) {
-            song.pause();
-            ctrlIcon.classList.remove('fa-pause');
-            ctrlIcon.classList.add('fa-play');
-        }
-        else {
-            song.play();
-            ctrlIcon.classList.add('fa-pause');
-            ctrlIcon.classList.remove('fa-play');
-        }
+function playPause() {
+    if (ctrlIcon.classList.contains('fa-pause')) {
+        song.pause();
+        ctrlIcon.classList.remove('fa-pause');
+        ctrlIcon.classList.add('fa-play');
     }
-
-    function loadSong(musicIndex) {
-        title.innerHTML = music[musicIndex].title;
-        description.innerHTML = music[musicIndex].autor;
-        song.src = music[musicIndex].path;
-    }
-
-    function clickForward() {
-        musicIndex++;
-
-        if (musicIndex > music.length - 1) {
-            musicIndex = 0;
-            loadSong(musicIndex);
-        }
-        else {
-            loadSong(musicIndex);
-            song.play();
-        }
-
+    else {
         song.play();
         ctrlIcon.classList.add('fa-pause');
         ctrlIcon.classList.remove('fa-play');
     }
+}
 
-    function clickBackward() {
-        musicIndex--;
+function loadSong(musicIndex) {
+    title.innerHTML = music[musicIndex].title;
+    description.innerHTML = music[musicIndex].autor;
+    song.src = music[musicIndex].path;
+}
 
-        if (musicIndex < 0) {
-            musicIndex = music.length - 1;
-            loadSong(musicIndex);
-        }
-        else {
-            loadSong(musicIndex);
-            song.play();
-        }
+function clickForward() {
+    musicIndex++;
 
+    if (musicIndex > music.length - 1) {
+        musicIndex = 0;
+        loadSong(musicIndex);
+    }
+    else {
+        loadSong(musicIndex);
         song.play();
-        ctrlIcon.classList.add('fa-pause');
-        ctrlIcon.classList.remove('fa-play');
     }
 
+    song.play();
+    ctrlIcon.classList.add('fa-pause');
+    ctrlIcon.classList.remove('fa-play');
+}
+
+function clickBackward() {
+    musicIndex--;
+
+    if (musicIndex < 0) {
+        musicIndex = music.length - 1;
+        loadSong(musicIndex);
+    }
+    else {
+        loadSong(musicIndex);
+        song.play();
+    }
+
+    song.play();
+    ctrlIcon.classList.add('fa-pause');
+    ctrlIcon.classList.remove('fa-play');
+}
+
+song.onloadedmetadata = function () {
+    progress.max = song.duration;
+    progress.value = song.currentTime;
+}
+
+progress.onchange = function () {
+    song.play();
+    song.currentTime = progress.value;
+}
+
+function allEvents() {
     ctrlIcon.addEventListener('click', playPause);
     forward.addEventListener('click', clickForward);
     backward.addEventListener('click', clickBackward);
     song.addEventListener('ended', clickForward);
-
-    song.onloadedmetadata = function () {
-        progress.max = song.duration;
-        progress.value = song.currentTime;
-    }
-
-    progress.onchange = function () {
-        song.play();
-        song.currentTime = progress.value;
-    }
 
     if (song) {
         setInterval(() => {
             progress.value = song.currentTime;
         }, 500);
     }
+}
 
+function init() {
+    allEvents();
     loadSong(musicIndex);
-
-};
+}
 
 init();
+
 
 
 
