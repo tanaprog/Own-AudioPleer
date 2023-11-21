@@ -4,8 +4,15 @@
     box-sizing: border-box;
 }
 
+:root {
+    --color-for-background: #ec0e0e;
+    --color-forborder-backgroundBtn: #fff;
+    --color-for-Body-for-text: #333;
+    --color-for-content: #f0d0c8;
+}
+
 .container {
-    background: #333;
+    background: var(--color-for-Body-for-text);
     width: 100%;
     height: 100vh;
     display: flex;
@@ -15,7 +22,7 @@
 }
 
 .content {
-    background-color: #f0d0c8;
+    background-color: var(--color-for-content);
     width: 400px;
     padding: 25px 35px;
     text-align: center;
@@ -26,26 +33,26 @@
     width: 220px;
     height: 220px;
     border-radius: 50%;
-    border: 8px solid #fff;
+    border: 8px solid var(--color-forborder-backgroundBtn);
     margin-top: 15px;
 }
 
 .content h1 {
     font-size: 20px;
-    color: #333;
+    color: var(--color-for-Body-for-text);
     margin-top: 20px;
 }
 
 .content p {
     font-size: 14px;
-    color: #333;
+    color: var(--color-for-Body-for-text);
 }
 
 #progress {
     -webkit-appearance: none;
     width: 100%;
     height: 6px;
-    background: #ec0e0e;
+    background: var(--color-for-background);
     border-radius: 4px;
     cursor: pointer;
     margin: 40px 0;
@@ -53,10 +60,10 @@
 
 #progress::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background: #ec0e0e;
+    background: var(--color-for-background);
     width: 30px;
     height: 30px;
-    border: 8px solid #fff;
+    border: 8px solid var(--color-forborder-backgroundBtn);
     border-radius: 50%;
 }
 
@@ -69,8 +76,8 @@
 .controls div {
     width: 60px;
     height: 60px;
-    background: #fff;
-    color: #ec0e0e;
+    background: var(--color-forborder-backgroundBtn);
+    color: var(--color-for-background);
     margin: 20px;
     display: inline-flex;
     align-items: center;
@@ -81,6 +88,6 @@
 
 .controls div:nth-child(2) {
     transform: scale(1.5);
-    background: #ec0e0e;
-    color: #fff;
+    background: var(--color-for-background);
+    color: var(--color-forborder-backgroundBtn);
 }
