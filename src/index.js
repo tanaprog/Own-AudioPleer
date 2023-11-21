@@ -6,11 +6,30 @@ const forward = document.getElementById('forward');
 const title = document.getElementById('title');
 const description = document.getElementById('description');
 
-const music = ['Space Melody', 'Road to hell', 'Till I Come', 'Living Without You'];
-const autor = ['Vize and Alan Wolker', 'Cris Rea', 'ATB', 'Rasmus'];
+const music = [
+    {
+        title: 'Space Melody',
+        autor: 'Vize and Alan Wolker',
+        path: 'media/living-without-you.mp3'
+    },
+    {
+        title: 'Road to hell',
+        autor: 'Cris Rea',
+        path: 'media/road-to-hell.mp3'
+    },
+    {
+        title: 'Till I Come',
+        autor: 'ATB',
+        path: 'media/space-melody.mp3'
+    },
+    {
+        title: 'Living Without You',
+        autor: 'Rasmus',
+        path: 'media/till-i-come.mp3'
+    },
+];
 
 let musicIndex = 0;
-let autorIndex = 0;
 
 function playPause() {
     if (ctrlIcon.classList.contains('fa-pause')) {
@@ -25,54 +44,49 @@ function playPause() {
     }
 }
 
-ctrlIcon.addEventListener('click', playPause);
-
-function loadSong(treck) {
-    title.innerHTML = treck;
-    song.src = `media/${treck}.mp3`;
-    description.innerHTML = autor[autorIndex];
+function loadSong(musicIndex) {
+    title.innerHTML = music[musicIndex].title;
+    description.innerHTML = music[musicIndex].autor;
+    song.src = music[musicIndex].path;
 }
-
-loadSong(music[musicIndex]);
 
 function clickForward() {
     musicIndex++;
-    autorIndex++;
 
     if (musicIndex > music.length - 1) {
-        musicIndex = -1;
+        musicIndex = 0;
+        loadSong(musicIndex);
     }
     else {
-        loadSong(music[musicIndex]);
+        loadSong(musicIndex);
         song.play();
     }
 
-    if (autorIndex > autor.length - 1) {
-        autorIndex = -1;
-    }
+    song.play();
+    ctrlIcon.classList.add('fa-pause');
+    ctrlIcon.classList.remove('fa-play');
 }
-
-forward.addEventListener('click', clickForward);
 
 function clickBackward() {
     musicIndex--;
-    autorIndex--;
 
     if (musicIndex < 0) {
-        musicIndex = music.length;
+        musicIndex = music.length - 1;
+        loadSong(musicIndex);
     }
     else {
-        loadSong(music[musicIndex]);
+        loadSong(musicIndex);
         song.play();
     }
 
-    if (autorIndex < 0) {
-        autorIndex = autor.length;
-    }
+    song.play();
+    ctrlIcon.classList.add('fa-pause');
+    ctrlIcon.classList.remove('fa-play');
 }
 
+ctrlIcon.addEventListener('click', playPause);
+forward.addEventListener('click', clickForward);
 backward.addEventListener('click', clickBackward);
-
 song.addEventListener('ended', clickForward);
 
 song.onloadedmetadata = function () {
@@ -80,15 +94,17 @@ song.onloadedmetadata = function () {
     progress.value = song.currentTime;
 }
 
-if (song.play) {
+progress.onchange = function () {
+    song.play();
+    song.currentTime = progress.value;
+}
+
+if (song) {
     setInterval(() => {
         progress.value = song.currentTime;
     }, 500);
 }
 
-progress.onchange = function () {
-    song.play();
-    song.currentTime = progress.value;
-}
+loadSong(musicIndex);
 
 
