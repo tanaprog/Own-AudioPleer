@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    background: #333;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.content {
+    background-color: #f0d0c8;
+    width: 400px;
+    padding: 25px 35px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.img-song {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 8px solid #fff;
+    margin-top: 15px;
+}
+
+.content h1 {
+    font-size: 20px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.content p {
+    font-size: 14px;
+    color: #333;
+}
+
+#progress {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #ec0e0e;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 40px 0;
+}
+
+#progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #ec0e0e;
+    width: 30px;
+    height: 30px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls div {
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    color: #ec0e0e;
+    margin: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.controls div:nth-child(2) {
+    transform: scale(1.5);
+    background: #ec0e0e;
+    color: #fff;
+}
